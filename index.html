@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support MyProject — Donate</title>
+
+  <!-- Social share preview -->
+  <meta property="og:title" content="Support MyProject">
+  <meta property="og:description" content="Support MyProject development by donating the minimal amount you guys can !!.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Support MyProject">
+  <meta name="twitter:description" content="Support MyProject development by donating the minimal amount you guys can !!.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --ink: #1c2333;
+      --muted: #5b6472;
+      --accent: #072654;
+      --accent-ink: #ffffff;
+      --line: #e6eaf2;
+      --pill: #eef2f9;
+      --shadow: 0 10px 30px rgba(28, 35, 51, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:
+        radial-gradient(900px 400px at 80% -10%, #e3ecff 0%, transparent 60%),
+        radial-gradient(700px 350px at 5% 110%, #e9f7ef 0%, transparent 55%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 32px 28px 28px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      margin: 0 auto 16px;
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    h1 { font-size: 22px; margin: 0 0 6px; font-weight: 800; letter-spacing: -0.02em; }
+    p.tagline { margin: 0 0 20px; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+
+    .secure-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pill);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      border-radius: 999px;
+      padding: 6px 12px;
+      margin-bottom: 22px;
+    }
+    .secure-row svg { flex: none; }
+
+    .amount-box {
+      background: var(--pill);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .amount-box .cur { font-size: 22px; font-weight: 700; color: var(--muted); }
+    .amount-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--ink);
+      width: 130px;
+      text-align: left;
+    }
+    .amount-box input::placeholder { color: #b6bdc9; font-weight: 600; }
+    /* hide number spinners */
+    .amount-box input::-webkit-outer-spin-button,
+    .amount-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .amount-box input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+    .btn-donate {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 15px 18px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-ink);
+      background: var(--accent);
+      cursor: pointer;
+      transition: transform 0.06s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 6px 16px rgba(7, 38, 84, 0.25);
+    }
+    .btn-donate:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(7, 38, 84, 0.28); }
+    .btn-donate:active { transform: translateY(0); }
+    .btn-donate:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    .hint { margin-top: 14px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+    .hint a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--line); }
+
+    .paylogos {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .paylogos span {
+      background: var(--pill);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .foot { margin-top: 18px; font-size: 11.5px; color: #98a1b0; }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(20px);
+      background: #1c2333;
+      color: #fff;
+      font-size: 13.5px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      max-width: 90vw;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 400px) {
+      .card { padding: 26px 20px 22px; }
+      h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo" aria-hidden="true">♥</div>
+
+    <h1 id="title">Support MyProject</h1>
+    <p class="tagline" id="tagline">
+      Support MyProject development by donating the minimal amount you guys can !! 🙏
+    </p>
+
+    <div class="secure-row" title="Payment is processed on Razorpay's PCI-DSS certified checkout">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Secure payment via Razorpay
+    </div>
+
+    <form id="donate-form" novalidate>
+      <div class="amount-box">
+        <span class="cur">₹</span>
+        <input id="amount" type="number" inputmode="numeric" min="10" step="1"
+               placeholder="Enter amount" autocomplete="off" aria-label="Donation amount in rupees">
+      </div>
+
+      <button class="btn-donate" id="donate-btn" type="submit">Donate</button>
+    </form>
+
+    <p class="hint">
+      You'll be taken to Razorpay's secure checkout to pay by
+      <strong>UPI, cards, netbanking &amp; wallets</strong>.
+    </p>
+
+    <div class="paylogos" aria-hidden="true">
+      <span>GPay</span><span>PhonePe</span><span>Paytm</span><span>BHIM</span><span>Cards</span>
+    </div>
+
+    <p class="foot">Your donation goes directly to the project's verified bank account via Razorpay.</p>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ============================================================
+    //  EDIT THIS BLOCK — everything else can stay as-is.
+    //  No API keys or secrets live in this file (and never add any).
+    // ============================================================
+    const CONFIG = {
+      // ⚠️ REQUIRED: your published Razorpay Payment Page short link
+      // (Dashboard → Payment Pages → your page → Share → copy link)
+      razorpayPageUrl: "https://pages.razorpay.com/pl_TkIvlQ9OE1zKA2/view",
+
+      // Branding
+      title: "Support MyProject",
+      tagline: "Support MyProject development by donating the minimal amount you guys can !! 🙏",
+
+      // Minimum donation (match the min amount you set on the Razorpay page)
+      minAmount: 10,
+
+      // Optional: append ?amount= to the Razorpay link (works on Razorpay
+      // payment pages: the checkout opens with the amount pre-filled).
+      prefillAmount: true,
+    };
+    // ============================================================
+
+    const $ = (id) => document.getElementById(id);
+
+    document.title = CONFIG.title + " — Donate";
+    $("title").textContent = CONFIG.title;
+    $("tagline").textContent = CONFIG.tagline;
+
+    const toast = $("toast");
+    let toastTimer;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function openCheckout(amount) {
+      let url = CONFIG.razorpayPageUrl;
+      try {
+        const u = new URL(url);
+        if (CONFIG.prefillAmount && amount != null) u.searchParams.set("amount", String(amount));
+        // open in same tab on mobile UPI webviews, new tab on desktop feels fine too
+        window.location.href = u.toString();
+      } catch {
+        showToast("Invalid Razorpay link in CONFIG — check index.html");
+      }
+    }
+
+    $("donate-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const raw = $("amount").value.trim();
+      const amount = Number(raw);
+
+      if (!raw || !Number.isFinite(amount)) return showToast("Please enter an amount 🙏");
+      if (!Number.isInteger(amount)) return showToast("Please enter a whole number (no decimals)");
+      if (amount < CONFIG.minAmount) return showToast("Minimum donation is ₹" + CONFIG.minAmount);
+      if (amount > 100000) return showToast("For donations above ₹1,00,000 please contact us directly");
+
+      openCheckout(amount);
+    });
+
+    // Basic tamper guard: if someone edits the file and removes the real link,
+    // fail loudly instead of silently doing nothing.
+    if (CONFIG.razorpayPageUrl.includes("REPLACE_ME")) {
+      $("donate-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        showToast("Setup needed: set your razorpayPageUrl in index.html");
+      }, { once: true });
+    }
+  </script>
+</body>
+</html>
