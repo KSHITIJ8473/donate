@@ -6,7 +6,7 @@
   <title>Support my work — Donate</title>
 
   <meta property="og:title" content="Support my work">
-  <meta property="og:description" content="Pick an amount, tap Give — pays directly to my UPI. No fees, no middlemen.">
+  <meta property="og:description" content="Pick an amount, scan the QR or copy my UPI ID — pays directly to my UPI. No fees, no middlemen.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
 
@@ -243,7 +243,7 @@
     }
     .upi-id-row button:hover { background: #d7e9fb; }
 
-    .btn-donate, .btn-secondary {
+    .btn-secondary {
       width: 100%;
       border-radius: 10px;
       padding: 13px 16px;
@@ -251,15 +251,7 @@
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform .06s, box-shadow .06s;
     }
-    .btn-donate {
-      border: none;
-      color: #fff;
-      background: var(--blue);
-      box-shadow: 0 2px 0 var(--blue-dark);
-    }
-    .btn-donate:active { transform: translateY(2px); box-shadow: 0 0 0 var(--blue-dark); }
     .btn-secondary {
       border: 1.5px solid var(--line);
       background: #fff;
@@ -270,7 +262,7 @@
     }
     .btn-secondary:hover { background: var(--chip); }
 
-    /* ---- the un-block help box ---- */
+    /* ---- the help box ---- */
     .help-box {
       margin-top: 16px;
       background: #fff8e6;
@@ -350,8 +342,8 @@
 
         <div class="qr-wrap" id="qr-wrap"></div>
         <p class="qr-caption">
-          <strong>Best way:</strong> scan this QR with any UPI app — works every time.
-          Already opened your app? Just approve there.
+          <strong>Best way:</strong> scan this QR with any UPI app —
+          the amount is pre-filled automatically.
         </p>
 
         <div class="upi-id-row">
@@ -360,14 +352,10 @@
           <button id="copy-id-btn" type="button">Copy</button>
         </div>
 
-        <button class="btn-donate" id="open-app-btn" type="button">Open UPI app again</button>
-        <button class="btn-secondary" id="copy-link-btn" type="button">Copy payment link</button>
         <button class="btn-secondary" id="back-btn" type="button">← change amount</button>
 
         <div class="help-box">
-          <b>⚠ Payment not going through? (Paytm shows "Payment Alert")</b>
-          Not your fault — UPI apps sometimes block payments that start from a
-          browser link. Both of these always work:
+          <b>💡 Can't scan the QR? Two easy ways to pay:</b>
           <ol>
             <li><strong>Copy the UPI ID above</strong> → open your UPI app →
                 "Pay to UPI ID / New payment" → paste → enter
@@ -478,11 +466,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       }
     }
 
-    function isMobileDevice() {
-      return /Android|iPhone|iPad|iPod|Mobile|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    }
-
     function validateAmount(amount) {
       if (!Number.isFinite(amount) || !Number.isInteger(amount)) return "Please enter a whole number (no decimals)";
       if (amount < CONFIG.minAmount) return "Minimum donation is ₹" + CONFIG.minAmount;
@@ -531,19 +514,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       $("step1").classList.remove("hidden-step");
     }
 
-    function openUpiApp() {
-      // Needs a user gesture — every caller is a click handler.
-      if (!currentUpiUri) return showToast("Choose an amount first 🙂");
-      const a = document.createElement("a");
-      a.href = currentUpiUri;
-      a.rel = "noopener";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      // If the app blocks it (Paytm's "Payment Alert"), the help box
-      // below the QR explains the two ways that always work.
-    }
-
     async function copyText(text, okMsg) {
       try {
         await navigator.clipboard.writeText(text);
@@ -586,7 +556,6 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (err) return showToast(err);
 
       showPayPanel(amount);
-      if (isMobileDevice()) openUpiApp();
     });
 
     // typing in the custom box deselects chips
@@ -594,9 +563,7 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (selectedChip) { selectedChip.classList.remove("sel"); selectedChip = null; }
     });
 
-    $("open-app-btn").addEventListener("click", openUpiApp);
     $("copy-id-btn").addEventListener("click", () => copyText(CONFIG.upiId, "UPI ID copied — now open your UPI app → Pay to UPI ID"));
-    $("copy-link-btn").addEventListener("click", () => copyText(currentUpiUri, "Payment link copied"));
     $("back-btn").addEventListener("click", hidePayPanel);
 
     window.addEventListener("load", () => $("amount").focus());
