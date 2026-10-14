@@ -3,391 +3,385 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support my open-source work — Donate</title>
+  <title>Support my work — Donate</title>
 
-  <!-- Social share preview -->
-  <meta property="og:title" content="Support my open-source work">
-  <meta property="og:description" content="        Pick an amount, tap donate, and your UPI app opens. Everything goes straight to my UPI — no fees, no middlemen, no nonsense.">
+  <meta property="og:title" content="Support my work">
+  <meta property="og:description" content="Pick an amount, tap Give — pays directly to my UPI. No fees, no middlemen.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Support my open-source work">
-  <meta name="twitter:description" content="Pick an amount, tap donate, and your UPI app opens. 100% of it reaches me, directly.">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♥️</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💙</text></svg>">
 
-  <!-- Fraunces for headings, Caveat for the handwritten bits.
-       Body text is your system font — fast and familiar. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- No payment SDK, no trackers, no external QR service:
-       the QR code below is generated locally in your browser. -->
+  <!-- No payment SDK, no trackers. The QR below is generated in your browser. -->
 
   <style>
     :root {
-      --paper: #faf6ee;
-      --sheet: #fffdf7;
-      --ink: #2a2520;
-      --faded: #7c7468;
-      --line: #e6dfcf;
-      --accent: #c14d2a;      /* terracotta */
-      --accent-dark: #a13c1e;
-      --green: #3e6b4f;
+      --blue: #1e88e5;
+      --blue-dark: #1565c0;
+      --sky1: #42a5f5;
+      --sky2: #1e88e5;
+      --ink: #1f2b3a;
+      --muted: #6b7a8c;
+      --line: #e3eaf2;
+      --chip: #f4f7fb;
     }
 
     * { box-sizing: border-box; }
-
     html { -webkit-text-size-adjust: 100%; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--paper);
-      background-image:
-        radial-gradient(circle at 12% 8%, rgba(193, 77, 42, 0.05) 0, transparent 240px),
-        radial-gradient(circle at 88% 90%, rgba(62, 107, 79, 0.05) 0, transparent 240px);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f2f5f9;
       color: var(--ink);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 16px;
-      line-height: 1.5;
     }
 
-    /* subtle paper grain, cheap trick but it works */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.35;
-      background-image: radial-gradient(rgba(42, 37, 32, 0.045) 1px, transparent 1px);
-      background-size: 22px 22px;
+    /* ---- top banner ---- */
+    .banner {
+      background: linear-gradient(135deg, var(--sky1), var(--sky2));
+      color: #fff;
+      text-align: center;
+      padding: 44px 20px 60px;
+    }
+    .banner h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 5.5vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .banner p {
+      margin: 0;
+      font-size: 14.5px;
+      opacity: 0.92;
     }
 
-    .page { width: 100%; max-width: 480px; position: relative; }
+    .wrap { padding: 0 16px 40px; }
 
-    .sheet {
-      background: var(--sheet);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      box-shadow:
-        0 1px 2px rgba(42, 37, 32, 0.06),
-        0 12px 32px -12px rgba(42, 37, 32, 0.18);
-      padding: 36px 32px 30px;
+    /* ---- card ---- */
+    .card {
+      max-width: 400px;
+      margin: -36px auto 0;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px -10px rgba(21, 101, 192, 0.25);
+      padding: 26px 22px 22px;
       position: relative;
     }
 
-    /* washi tape holding the sheet up */
-    .tape {
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-2.5deg);
-      width: 110px;
-      height: 30px;
-      background: rgba(193, 77, 42, 0.18);
-      border-left: 1px dashed rgba(193, 77, 42, 0.35);
-      border-right: 1px dashed rgba(193, 77, 42, 0.35);
-      backdrop-filter: blur(1px);
-    }
-
-    .kicker {
-      font-family: "Caveat", cursive;
-      font-size: 19px;
-      color: var(--accent);
-      margin: 4px 0 2px;
-    }
-
-    h1 {
-      font-family: "Fraunces", Georgia, serif;
-      font-weight: 800;
-      font-size: clamp(26px, 6vw, 32px);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      margin: 0 0 12px;
-    }
-    h1 em {
-      font-style: normal;
-      color: var(--accent);
-      text-decoration: underline;
-      text-decoration-style: wavy;
-      text-decoration-color: rgba(193, 77, 42, 0.4);
-      text-underline-offset: 5px;
-    }
-
-    p.lede { margin: 0 0 18px; color: var(--faded); font-size: 15px; }
-
-    .note {
-      font-family: "Caveat", cursive;
-      font-size: 20px;
-      line-height: 1.45;
-      color: #4a443c;
-      background: #fdf9ec;
-      border: 1px dashed #e0d5b8;
-      border-radius: 8px;
-      padding: 12px 16px 6px;
-      margin: 0 4px 20px 0;
-      transform: rotate(-0.4deg);
-    }
-
-    .funds {
-      margin: 0 0 22px;
-      padding: 0;
-      list-style: none;
-    }
-    .funds li {
-      display: flex;
-      gap: 9px;
-      align-items: baseline;
-      font-size: 14px;
-      color: var(--faded);
-      padding: 3px 0;
-    }
-    .funds b { color: var(--ink); font-weight: 600; }
-    .funds .tick {
-      color: var(--green);
+    .step-tag {
+      text-align: center;
+      font-size: 12.5px;
       font-weight: 700;
-      flex: none;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
     }
 
-    /* ---- the amount line: looks handwritten-on-rule, not an admin panel ---- */
-    .amount-line {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 12px 2px;
-      margin-bottom: 8px;
+    /* ---- amount chips ---- */
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
     }
-    .amount-line .cur {
-      font-family: "Fraunces", Georgia, serif;
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--faded);
-    }
-    .amount-line input {
-      border: none;
-      outline: none;
-      background: transparent;
-      font-family: "Fraunces", Georgia, serif;
-      font-size: 32px;
-      font-weight: 800;
+    .chip {
+      border: 1.5px solid var(--line);
+      background: var(--chip);
+      border-radius: 10px;
+      padding: 13px 8px;
+      font-family: inherit;
+      font-size: 15.5px;
+      font-weight: 700;
       color: var(--ink);
-      width: 150px;
-      text-align: left;
-      caret-color: var(--accent);
+      cursor: pointer;
+      transition: border-color .12s, background .12s, color .12s, transform .06s;
     }
-    .amount-line input::placeholder { color: #cfc7b8; font-weight: 600; }
-    .amount-line input::-webkit-outer-spin-button,
-    .amount-line input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    .amount-line input[type=number] { -moz-appearance: textfield; appearance: textfield; }
-    .amount-line .after {
-      margin-left: auto;
-      font-family: "Caveat", cursive;
-      font-size: 18px;
-      color: #a8a094;
+    .chip:hover { border-color: #b9cfe8; }
+    .chip:active { transform: scale(.98); }
+    .chip.sel {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
     }
 
-    .micro { font-size: 12.5px; color: var(--faded); margin: 0 0 14px; }
+    /* ---- custom amount ---- */
+    .other-box {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid var(--line);
+      background: var(--chip);
+      border-radius: 10px;
+      padding: 0 14px;
+      height: 50px;
+      margin-bottom: 4px;
+      transition: border-color .12s;
+    }
+    .other-box:focus-within { border-color: var(--blue); background: #fff; }
+    .other-box .cur { color: var(--muted); font-weight: 700; font-size: 16px; margin-right: 6px; }
+    .other-box input {
+      border: none; outline: none; background: transparent;
+      font-family: inherit; font-size: 17px; font-weight: 700; color: var(--ink);
+      width: 100%;
+    }
+    .other-box input::placeholder { color: #aab7c6; font-weight: 600; }
+    .other-box input::-webkit-outer-spin-button,
+    .other-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .other-box input[type=number] { -moz-appearance: textfield; appearance: textfield; }
 
-    .btn-donate, .btn-secondary {
+    .micro { font-size: 12px; color: var(--muted); margin: 6px 0 16px; text-align: center; }
+
+    .btn-give {
       width: 100%;
       border: none;
       border-radius: 10px;
-      padding: 14px 18px;
-      font-family: system-ui, sans-serif;
-      font-size: 15.5px;
+      padding: 15px;
+      font-family: inherit;
+      font-size: 16px;
       font-weight: 700;
+      color: #fff;
+      background: var(--blue);
       cursor: pointer;
-      transition: transform 0.06s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      box-shadow: 0 2px 0 var(--blue-dark);
+      transition: transform .06s, box-shadow .06s, opacity .12s;
     }
-    .btn-donate {
-      color: #fff7ef;
-      background: var(--accent);
-      box-shadow: 0 3px 0 var(--accent-dark);
-      letter-spacing: 0.01em;
-    }
-    .btn-donate:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--accent-dark); }
-    .btn-donate:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--accent-dark); }
-    .btn-donate:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--line);
-      color: var(--ink);
-      margin-top: 10px;
-      font-size: 14px;
-      padding: 11px 18px;
-    }
-    .btn-secondary:hover { background: #f4eee0; }
+    .btn-give:hover { background: #1976d2; }
+    .btn-give:active { transform: translateY(2px); box-shadow: 0 0 0 var(--blue-dark); }
+    .btn-give:disabled { opacity: .55; cursor: not-allowed; }
 
-    .pay-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .logos {
       margin-top: 18px;
       padding-top: 14px;
       border-top: 1px solid var(--line);
-      color: var(--green);
-      font-size: 13px;
-      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
-    .pay-row svg { flex: none; color: var(--green); }
-    .pay-row span.dim { color: var(--faded); font-weight: 500; }
+    .logos span {
+      background: var(--chip);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+    }
 
-    /* ---- pay panel (desktop / fallback view) ---- */
+    .foot {
+      text-align: center;
+      font-size: 11.5px;
+      color: #9aa8b8;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    /* ================= step 2: pay ================= */
     #pay-panel { display: none; }
     #pay-panel.show { display: block; }
-    #donate-form.hidden-form { display: none; }
+    #step1.hidden-step { display: none; }
 
-    .paying-title {
-      font-family: "Fraunces", Georgia, serif;
-      font-weight: 800;
-      font-size: 21px;
-      margin: 4px 0 14px;
-    }
+    .pay-title { text-align: center; font-size: 17px; font-weight: 800; margin: 0 0 14px; }
+    .pay-title b { color: var(--blue); }
+
     .qr-wrap {
-      margin: 0 auto 14px;
-      width: 216px;
-      height: 216px;
+      margin: 0 auto 12px;
+      width: 208px;
+      height: 208px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #fff;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      box-shadow: 0 6px 18px -8px rgba(42, 37, 32, 0.2);
+      border-radius: 12px;
+      background: #fff;
       overflow: hidden;
     }
     .qr-wrap svg { display: block; }
-    .qr-caption { font-size: 13px; color: var(--faded); margin: 0 0 14px; line-height: 1.55; }
-    .qr-caption strong { color: var(--ink); }
-    .upi-uri {
-      background: #f4eee0;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px 11px;
-      font-size: 11.5px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      color: var(--faded);
-      word-break: break-all;
-      user-select: all;
-      margin-bottom: 14px;
-      line-height: 1.45;
-    }
-
-    .sig {
-      font-family: "Caveat", cursive;
-      font-size: 21px;
-      color: #4a443c;
-      margin: 20px 0 0;
-      text-align: right;
-    }
-    .sig small { display: block; font-size: 14px; color: #a8a094; }
-
-    .foot {
-      margin-top: 16px;
-      font-size: 11.5px;
-      color: #a8a094;
+    .qr-caption {
       text-align: center;
-      line-height: 1.6;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 14px;
     }
-    .foot a { color: var(--faded); text-decoration: none; border-bottom: 1px solid var(--line); }
+    .qr-caption strong { color: var(--ink); }
 
-    /* toast */
+    .upi-id-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--chip);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 11px 12px;
+      margin-bottom: 10px;
+    }
+    .upi-id-row .lbl { font-size: 11.5px; color: var(--muted); font-weight: 600; }
+    .upi-id-row .val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      font-weight: 700;
+      flex: 1;
+      user-select: all;
+      word-break: break-all;
+    }
+    .upi-id-row button {
+      flex: none;
+      border: 1.5px solid var(--blue);
+      background: #e8f2fc;
+      color: var(--blue);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+    .upi-id-row button:hover { background: #d7e9fb; }
+
+    .btn-donate, .btn-secondary {
+      width: 100%;
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .06s, box-shadow .06s;
+    }
+    .btn-donate {
+      border: none;
+      color: #fff;
+      background: var(--blue);
+      box-shadow: 0 2px 0 var(--blue-dark);
+    }
+    .btn-donate:active { transform: translateY(2px); box-shadow: 0 0 0 var(--blue-dark); }
+    .btn-secondary {
+      border: 1.5px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      margin-top: 9px;
+      font-size: 13.5px;
+      padding: 11px 16px;
+    }
+    .btn-secondary:hover { background: var(--chip); }
+
+    /* ---- the un-block help box ---- */
+    .help-box {
+      margin-top: 16px;
+      background: #fff8e6;
+      border: 1px solid #f2e3b3;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #6b5b1e;
+    }
+    .help-box b { color: #57470f; display: block; margin-bottom: 4px; font-size: 13px; }
+    .help-box ol { margin: 4px 0 0; padding-left: 18px; }
+    .help-box li { margin: 3px 0; }
+    .help-box .upi-inline {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-weight: 700;
+      user-select: all;
+    }
+
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 28px;
-      transform: translateX(-50%) translateY(20px);
+      bottom: 26px;
+      transform: translateX(-50%) translateY(16px);
       background: var(--ink);
-      color: #fff7ef;
-      font-size: 13.5px;
+      color: #fff;
+      font-size: 13px;
       padding: 10px 16px;
-      border-radius: 8px;
+      border-radius: 9px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity .2s, transform .2s;
       max-width: 90vw;
+      z-index: 5;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    @media (max-width: 400px) {
-      .sheet { padding: 30px 22px 24px; }
-      body { padding: 32px 14px; }
+    @media (max-width: 380px) {
+      .card { padding: 22px 16px 18px; }
+      .banner { padding: 36px 16px 54px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <main class="sheet">
-      <div class="tape" aria-hidden="true"></div>
 
-      <p class="kicker">a small request from a bigger nerd 🙂</p>
-      <h1>Support my <em>open-source</em> work</h1>
-      <p class="lede">
-        What I build is free — no ads, no paywalls, no "pro version".
-        If something I made saved you time, a donation keeps the lights
-        (and the servers) on.
-      </p>
+  <header class="banner">
+    <h1>Support my work</h1>
+    <p>Pays directly to my UPI — no fees, no middlemen.</p>
+  </header>
 
-      <div class="note">
-        every single rupee goes into hosting bills, domains &amp; the chai
-        that fuels this whole thing ☕ thank you for even considering it!
-      </div>
+  <div class="wrap">
+    <main class="card">
 
-      <!-- ================= STEP 1: enter amount ================= -->
-      <form id="donate-form" novalidate>
-        <div class="amount-line">
+      <!-- ============ STEP 1 — choose amount ============ -->
+      <section id="step1">
+        <p class="step-tag">Choose an amount</p>
+
+        <div class="chips" id="chips"></div>
+
+        <div class="other-box">
           <span class="cur">₹</span>
           <input id="amount" type="number" inputmode="numeric" min="10" step="1"
-                 placeholder="_ _ _" autocomplete="off" aria-label="Donation amount in rupees">
-          <span class="after">min ₹10</span>
+                 placeholder="Other amount" autocomplete="off" aria-label="Donation amount in rupees">
         </div>
-        <p class="micro">Type it, tap it — your UPI app does the rest. No OTPs on my side, nothing to sign up for.</p>
+        <p class="micro">Minimum ₹10 · whole rupees</p>
 
-        <button class="btn-donate" id="donate-btn" type="submit">Donate via UPI →</button>
-      </form>
+        <button class="btn-give" id="give-btn" type="button">Give</button>
 
-      <!-- ================= STEP 2: pay (QR + app link) ================= -->
-      <div id="pay-panel">
-        <p class="paying-title">Donating <span id="pay-amount">₹0</span></p>
+        <div class="logos" aria-hidden="true">
+          <span>GPay</span><span>PhonePe</span><span>Paytm</span><span>BHIM</span>
+        </div>
+      </section>
+
+      <!-- ============ STEP 2 — pay ============ -->
+      <section id="pay-panel">
+        <p class="pay-title">Donating <b id="pay-amount">₹0</b> · <span id="pay-note"></span></p>
 
         <div class="qr-wrap" id="qr-wrap"></div>
         <p class="qr-caption">
-          On mobile, your <strong>UPI app should have opened</strong> — just approve it there.<br>
-          On a laptop? <strong>Scan the QR with any UPI app</strong>, or copy the link below into your phone.
+          <strong>Best way:</strong> scan this QR with any UPI app — works every time.
+          Already opened your app? Just approve there.
         </p>
 
-        <div class="upi-uri" id="upi-uri"></div>
+        <div class="upi-id-row">
+          <span class="lbl">UPI ID</span>
+          <span class="val" id="upi-id-text"></span>
+          <button id="copy-id-btn" type="button">Copy</button>
+        </div>
 
-        <button class="btn-donate" id="open-app-btn" type="button">Didn't open? Tap to open UPI app</button>
+        <button class="btn-donate" id="open-app-btn" type="button">Open UPI app again</button>
         <button class="btn-secondary" id="copy-link-btn" type="button">Copy payment link</button>
-        <button class="btn-secondary" id="back-btn" type="button">← pick a different amount</button>
-      </div>
+        <button class="btn-secondary" id="back-btn" type="button">← change amount</button>
 
-      <div class="pay-row">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="11" width="18" height="11" rx="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        Direct UPI transfer
-        <span class="dim">· you approve it, your bank handles it · I never see your bank details</span>
-      </div>
+        <div class="help-box">
+          <b>⚠ Payment not going through? (Paytm shows "Payment Alert")</b>
+          Not your fault — UPI apps sometimes block payments that start from a
+          browser link. Both of these always work:
+          <ol>
+            <li><strong>Copy the UPI ID above</strong> → open your UPI app →
+                "Pay to UPI ID / New payment" → paste → enter
+                <b id="help-amount">₹0</b> yourself.</li>
+            <li><strong>Scan the QR</strong> above with your UPI app's scanner.</li>
+          </ol>
+        </div>
+      </section>
 
-      <p class="sig">
-        — the person who wrote all this code<br>
-        <small>(and who reads every thank-you message)</small>
+      <p class="foot">
+        100% reaches me, straight to my bank via UPI.<br>
+        Your app verifies my name before you approve — always check it.
       </p>
     </main>
-
-    <p class="foot">
-      100% of your donation reaches me — no gateway, no 2% platform cut.
-      Payments land directly in my bank via UPI.
-    </p>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -415,18 +409,19 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     // ============================================================
     const CONFIG = {
       // Your UPI ID — money lands directly in your bank account.
-      // Double-check this: donations cannot be auto-verified or
-      // refunded by the app, they go straight to this VPA.
       upiId: "rraghav766@ptyes",
 
-      title: "Support my open-source work",
-      tagline: "What I build is free — no ads, no paywalls. A donation keeps the servers on.",
+      title: "Support my work",
+      bannerSub: "Pays directly to my UPI — no fees, no middlemen.",
 
-      // Payment note shown in donor's UPI app
-      note: "Donation — thanks for the support!",
+      // Shown as the payment note inside the donor's UPI app.
+      note: "raghav repo",
+
+      // Preset chips (₹). Keep 4–6 values.
+      presets: [10, 20, 50, 100, 500, 1000],
 
       minAmount: 10,
-      maxAmount: 100000, // above this, ask donors to contact you directly
+      maxAmount: 100000,
     };
     // ============================================================
 
@@ -444,11 +439,12 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     }
 
     // ------------------------------------------------------------
-    // UPI deep link builder (NPCI standard URI format):
+    // UPI deep link (NPCI standard):
     //   upi://pay?pa=<vpa>&am=<amount>&cu=INR&tn=<note>
-    // The payee name (pn) is deliberately omitted so the UPI app
-    // displays the real name registered to your VPA — that's the
-    // trustworthy thing for donors to see.
+    // We deliberately do NOT fake a payee name (pn): the name shown
+    // in the donor's UPI app comes from the NPCI registry for the VPA
+    // and cannot be changed — that's exactly what protects donors
+    // from spoofed links. The note ("raghav repo") is what we control.
     // ------------------------------------------------------------
     function buildUpiUri(amount) {
       const pa = encodeURIComponent(CONFIG.upiId);
@@ -460,15 +456,14 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     function renderQr(uri) {
       let svg = "";
       try {
-        // typeNumber 0 = pick the smallest QR version that fits
         const qr = qrcode(0, "M");
         qr.addData(uri, "Byte");
         qr.make();
         svg = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
       } catch (e) {
         $("qr-wrap").innerHTML = "";
-        showToast("QR generation failed — use 'Copy payment link' instead.");
-        return null;
+        showToast("QR failed — copy the UPI ID below instead.");
+        return;
       }
       const wrap = $("qr-wrap");
       wrap.innerHTML = svg;
@@ -476,88 +471,116 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (s) {
         s.removeAttribute("width");
         s.removeAttribute("height");
-        s.style.width = "200px";
-        s.style.height = "200px";
+        s.style.width = "192px";
+        s.style.height = "192px";
         s.setAttribute("role", "img");
         s.setAttribute("aria-label", "UPI payment QR code");
       }
-      return svg;
     }
 
     function isMobileDevice() {
       return /Android|iPhone|iPad|iPod|Mobile|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPadOS 13+
+        || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
     }
 
-    // Amount guard, also re-checked at every use site below.
     function validateAmount(amount) {
       if (!Number.isFinite(amount) || !Number.isInteger(amount)) return "Please enter a whole number (no decimals)";
       if (amount < CONFIG.minAmount) return "Minimum donation is ₹" + CONFIG.minAmount;
-      if (amount > CONFIG.maxAmount) return "For donations above ₹" + CONFIG.maxAmount.toLocaleString("en-IN") + " please contact me directly";
+      if (amount > CONFIG.maxAmount) return "For amounts above ₹" + CONFIG.maxAmount.toLocaleString("en-IN") + " please contact me directly";
       return null;
     }
 
     let currentUpiUri = "";
+    let currentAmount = 0;
+    let selectedChip = null;
+
+    // ---- build the preset chips ----
+    (function buildChips() {
+      const wrap = $("chips");
+      CONFIG.presets.forEach((v) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = "₹" + v.toLocaleString("en-IN");
+        b.dataset.value = String(v);
+        b.addEventListener("click", () => {
+          if (selectedChip) selectedChip.classList.remove("sel");
+          selectedChip = b;
+          b.classList.add("sel");
+          $("amount").value = ""; // chip wins; custom box clears
+        });
+        wrap.appendChild(b);
+      });
+    })();
 
     function showPayPanel(amount) {
-      const uri = buildUpiUri(amount);
-      currentUpiUri = uri;
+      currentAmount = amount;
+      currentUpiUri = buildUpiUri(amount);
 
-      $("donate-form").classList.add("hidden-form");
+      $("step1").classList.add("hidden-step");
       $("pay-panel").classList.add("show");
       $("pay-amount").textContent = "₹" + amount.toLocaleString("en-IN");
-      $("upi-uri").textContent = uri;
-      renderQr(uri);
+      $("pay-note").textContent = CONFIG.note;
+      $("upi-id-text").textContent = CONFIG.upiId;
+      $("help-amount").textContent = "₹" + amount.toLocaleString("en-IN");
+      renderQr(currentUpiUri);
     }
 
     function hidePayPanel() {
       $("pay-panel").classList.remove("show");
-      $("donate-form").classList.remove("hidden-form");
-      $("amount").focus();
+      $("step1").classList.remove("hidden-step");
     }
 
     function openUpiApp() {
-      // Must be a user gesture (a tap) for mobile browsers to allow
-      // leaving the page for another app — every call site is a click.
-      if (!currentUpiUri) return showToast("Enter an amount first 🙂");
+      // Needs a user gesture — every caller is a click handler.
+      if (!currentUpiUri) return showToast("Choose an amount first 🙂");
       const a = document.createElement("a");
       a.href = currentUpiUri;
       a.rel = "noopener";
       document.body.appendChild(a);
       a.click();
       a.remove();
+      // If the app blocks it (Paytm's "Payment Alert"), the help box
+      // below the QR explains the two ways that always work.
     }
 
-    async function copyUpiLink() {
-      if (!currentUpiUri) return showToast("Enter an amount first 🙂");
+    async function copyText(text, okMsg) {
       try {
-        await navigator.clipboard.writeText(currentUpiUri);
-        showToast("Payment link copied — paste it on your phone and open it");
+        await navigator.clipboard.writeText(text);
+        showToast(okMsg);
       } catch {
-        // Clipboard API can be blocked (http, iframe, permissions) —
-        // fall back to selecting the visible URI so the user can copy manually.
-        const range = document.createRange();
-        range.selectNodeContents($("upi-uri"));
-        const sel = getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        showToast("Copy the highlighted link manually (long-press → Copy)");
+        // Clipboard blocked (http / iframe / permissions) — manual fallback.
+        const tmp = document.createElement("textarea");
+        tmp.value = text;
+        tmp.style.position = "fixed";
+        tmp.style.opacity = "0";
+        document.body.appendChild(tmp);
+        tmp.select();
+        try { document.execCommand("copy"); showToast(okMsg); }
+        catch { showToast("Long-press the text to copy it"); }
+        tmp.remove();
       }
     }
 
-    // Sanity guard on the configured VPA so a typo never sends donors nowhere.
+    // ---- Give ----
     const VPA_RE = /^[a-zA-Z0-9.\-]{2,256}@[a-zA-Z]{2,64}$/;
 
-    $("donate-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-
+    $("give-btn").addEventListener("click", () => {
       if (!VPA_RE.test(CONFIG.upiId)) {
-        return showToast("Setup error: UPI ID in CONFIG looks invalid — check index.html");
+        return showToast("Setup error: UPI ID in CONFIG is invalid — check index.html");
       }
 
+      let amount = null;
       const raw = $("amount").value.trim();
-      const amount = Number(raw);
-      if (!raw || !Number.isFinite(amount)) return showToast("Please enter an amount 🙂");
+
+      if (raw) {
+        amount = Number(raw);
+        if (!Number.isFinite(amount)) return showToast("Please enter a valid amount 🙂");
+      } else if (selectedChip) {
+        amount = Number(selectedChip.dataset.value);
+      } else {
+        return showToast("Pick an amount or type one 🙂");
+      }
 
       const err = validateAmount(amount);
       if (err) return showToast(err);
@@ -566,12 +589,16 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
       if (isMobileDevice()) openUpiApp();
     });
 
+    // typing in the custom box deselects chips
+    $("amount").addEventListener("input", () => {
+      if (selectedChip) { selectedChip.classList.remove("sel"); selectedChip = null; }
+    });
+
     $("open-app-btn").addEventListener("click", openUpiApp);
-    $("copy-link-btn").addEventListener("click", copyUpiLink);
+    $("copy-id-btn").addEventListener("click", () => copyText(CONFIG.upiId, "UPI ID copied — now open your UPI app → Pay to UPI ID"));
+    $("copy-link-btn").addEventListener("click", () => copyText(currentUpiUri, "Payment link copied"));
     $("back-btn").addEventListener("click", hidePayPanel);
 
-    // Leave the form empty on first load; mobile users get piped straight
-    // into their UPI app after Submit, desktop users see the QR panel.
     window.addEventListener("load", () => $("amount").focus());
   </script>
 </body>
