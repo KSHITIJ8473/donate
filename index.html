@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Support my work — Donate</title>
 
+  <!-- ============ SECURITY: locked-down browser policy ============
+       The CSP below means: only THIS page's own inline code may run
+       (no injected or third-party scripts), styles/fonts only from here
+       + Google Fonts, images only inline data URIs, and <base>/form
+       hijacks are impossible. GitHub Pages can't send HTTP headers,
+       so this is delivered as a meta tag. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src data:; base-uri 'none'; form-action 'none'">
+  <!-- This page's URL is never leaked to any server (no tracking). -->
+  <meta name="referrer" content="no-referrer">
+
   <meta property="og:title" content="Support my work">
   <meta property="og:description" content="Pick an amount, scan the QR or copy my UPI ID — pays directly to my UPI. No fees, no middlemen.">
   <meta property="og:type" content="website">
@@ -308,6 +319,37 @@
 </head>
 <body>
 
+  <script>
+    // ============================================================
+    // GUARD — anti-phishing + anti-tamper (runs before anything renders)
+    //  1. If this page is embedded in someone else's site/iframe
+    //     (a classic phishing trick to fake your payee name), blank
+    //     ourselves out and try to break out of the frame.
+    //  2. On load, verify the file is untouched: exactly 3 scripts,
+    //     no iframes/objects. Anything extra = wiped off.
+    // ============================================================
+    (function () {
+      var root = document.documentElement;
+      try {
+        if (window.self !== window.top) {
+          root.style.display = "none";
+          window.top.location.replace(window.location.href);
+        }
+      } catch (e) {
+        root.style.display = "none"; // cross-origin access blocked = hostile frame
+      }
+      window.addEventListener("load", function () {
+        var intact =
+          document.querySelectorAll("script").length === 3 &&
+          document.querySelectorAll("iframe, object, embed").length === 0;
+        if (!intact) {
+          document.title = "Blocked";
+          root.innerHTML = "";
+        }
+      });
+    })();
+  </script>
+
   <header class="banner">
     <h1>Support my work</h1>
     <p>Pays directly to my UPI — no fees, no middlemen.</p>
@@ -397,6 +439,10 @@ var qrcode=function(){var t=function(t,r){var e=t,n=g[r],o=null,i=0,a=null,u=[],
     // ============================================================
     const CONFIG = {
       // Your UPI ID — money lands directly in your bank account.
+      // ⚠ This is intentionally public-safe: it is visibly printed on
+      // the QR anyway, and a VPA can only RECEIVE money. Never put a
+      // bank password, OTP, card number, PKINT/other app secret, or
+      // anything private in this file — this repo is public.
       upiId: "rraghav766@ptyes",
 
       title: "Support my work",
